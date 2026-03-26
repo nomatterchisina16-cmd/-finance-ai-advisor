@@ -45,6 +45,11 @@ if "api_key_set" not in st.session_state:
 st.sidebar.markdown("# ⚙️ Configuration")
 
 # API Key Input
+# Check Streamlit Secrets first
+if "OPENAI_API_KEY" in st.secrets:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+    st.session_state.api_key_set = True
+
 api_key = st.sidebar.text_input("Enter your OpenAI API Key", type="password", key="api_key_input")
 if api_key:
     st.session_state.api_key_set = True
